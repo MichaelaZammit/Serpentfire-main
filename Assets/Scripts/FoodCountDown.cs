@@ -1,20 +1,17 @@
-using System;
 using System.Collections;
-
 using TMPro;
-
-using Unity.VisualScripting;
-
 using UnityEngine;
 
 public class FoodCountdown : MonoBehaviour
 {
     [SerializeField] private int _countdownTimer = 9;
     [SerializeField] private TextMeshPro _countdownText;
+    [SerializeField] private int _points = 10; // Add points variable
 
     private GameManager _gameManager;
 
     public int CountdownTimer { get => _countdownTimer; set => _countdownTimer = value; }
+    public int Points { get => _points; }
 
     private void Awake()
     {
@@ -46,6 +43,7 @@ public class FoodCountdown : MonoBehaviour
         }
 
         _gameManager.RemoveScreenObject(transform);
+        _gameManager.Score += Points;
         Destroy(gameObject);
     }
 }
