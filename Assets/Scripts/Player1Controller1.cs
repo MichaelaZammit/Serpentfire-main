@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player1Controller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject _tailPrefab;
     [SerializeField] private float _snakeSpeed = 0.3f;
@@ -34,13 +32,13 @@ public class Player1Controller : MonoBehaviour
 
         _moveTimer += Time.deltaTime;
 
-        if(_moveTimer >= _movementSpeed)
+        if (_moveTimer >= _movementSpeed)
         {
             _moveTimer = 0f;
             Vector3 previousPosition = transform.position;
             position += _currentDirection;
 
-            if(_foodEaten)
+            if (_foodEaten)
             {
                 GameObject tail = Instantiate(_tailPrefab, previousPosition, Quaternion.identity);
                 _tails.Insert(0, tail.transform);
@@ -52,7 +50,7 @@ public class Player1Controller : MonoBehaviour
                     _snakeSpeed -= .0025f;
                 }
             }
-            else if(_tails.Count > 0)
+            else if (_tails.Count > 0)
             {
                 _tails.Last().position = previousPosition;
                 _tails.Insert(0, _tails.Last());
@@ -87,7 +85,7 @@ public class Player1Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Food"))
+        if (collision.CompareTag("Food"))
         {
             if (collision.TryGetComponent<FoodCountdown>(out FoodCountdown foodComponent))
             {

@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using System.Linq;
+
+using TMPro;
+
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
+    [SerializeField] private GameObject _gameOver;
+
     private List<Transform> _screenObjects = new List<Transform>();
-    private GameState _currentState = GameState.GameInProgress;
+    private GameState _currentState;
 
     public int Score = 0;
 
-    public GameState CurrentState { get { return _currentState;} }
+    public GameState CurrentState { get { return _currentState; } }
+
 
     private void Awake()
     {
@@ -26,13 +31,14 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.GameInProgress:
+                _gameOver.SetActive(false);
                 Score = 0;
                 break;
-                case GameState.GameOver:
-
+            case GameState.GameOver:
+                _gameOver.SetActive(true);
                 break;
 
-                default: break;
+            default: break;
         }
     }
 
@@ -46,12 +52,18 @@ public class GameManager : MonoBehaviour
         _screenObjects.Remove(transform);
     }
 
-    public bool FindScreenObject( float posx, float posy)
+    public bool FindScreenObjerct(float posx, float posy)
     {
         Transform objtransform = _screenObjects.Where(x => x.position.x == posx && x.position.y == posy).FirstOrDefault();
-        if(objtransform)
-        return true;
+        if (objtransform)
+            return true;
 
         return false;
+    }
+
+    public void RestartGame()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

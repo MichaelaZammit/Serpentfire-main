@@ -11,9 +11,10 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int _height = 40;
     
     private Vector2 pos = Vector2.zero;
-
+    private GameManager _gameManager;
     private void Awake()
     {
+        _gameManager = FindObjectOfType<GameManager>();
         GenerateWalls();
         InstantiateHead();
     }
@@ -23,6 +24,8 @@ public class BoardManager : MonoBehaviour
         GameObject Head = Instantiate(_Head);
         pos = new Vector2(_StartingCorner.x + _width / 2, _StartingCorner.y + _height / -2);
         Head.transform.position = pos;
+        
+        _gameManager.AddScreenObject(Head.transform);
     }
 
     private void GenerateWalls()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 {
+
     [SerializeField] private GameObject _foodPrefab;
     [SerializeField] private int _borderLeft = 0;
     [SerializeField] private int _borderRight = 0;
@@ -42,13 +43,14 @@ public class FoodSpawner : MonoBehaviour
             x = (int)Random.Range(_borderLeft, _borderRight);
             y = (int)Random.Range(_borderTop, _borderBottom);
 
-            if (!_gameManager.FindScreenObject(x, y))
+            if (!_gameManager.FindScreenObjerct(x, y))
             {
                 break;
             }
         }
-        
+
         GameObject go = Instantiate(_foodPrefab, new Vector2(x, y), Quaternion.identity);
         _gameManager.AddScreenObject(go.transform);
+
     }
 }
