@@ -10,7 +10,7 @@ public class Player1Controller : MonoBehaviour
     [SerializeField] private GameObject _tailPrefab;
     [SerializeField] private float _snakeSpeed = 0.3f;
 
-    private PlayerControls _controls;
+    private PlayerControls2 _controls;
     private Vector2 _currentDirection = Vector2.right;
     private float _movementSpeed = 0.3f;
     private float _moveTimer = 0f;
@@ -21,7 +21,7 @@ public class Player1Controller : MonoBehaviour
 
     private void Awake()
     {
-        _controls = new PlayerControls();
+        _controls = new PlayerControls2();
         _gameManager = FindObjectOfType<GameManager>();
     }
 
