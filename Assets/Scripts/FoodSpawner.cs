@@ -5,7 +5,7 @@ using UnityEngine;
 public class FoodSpawner : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _foodPrefab;
+    [SerializeField] private GameObject[] _foodPrefab;
     [SerializeField] private int _borderLeft = 0;
     [SerializeField] private int _borderRight = 0;
     [SerializeField] private int _borderTop = 0;
@@ -49,7 +49,8 @@ public class FoodSpawner : MonoBehaviour
             }
         }
 
-        GameObject go = Instantiate(_foodPrefab, new Vector2(x, y), Quaternion.identity);
+        int random = Random.Range(0, _foodPrefab.Length);
+        GameObject go = Instantiate(_foodPrefab[random], new Vector2(x, y), Quaternion.identity);
         _gameManager.AddScreenObject(go.transform);
 
     }

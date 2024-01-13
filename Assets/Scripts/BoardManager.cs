@@ -6,6 +6,7 @@ public class BoardManager : MonoBehaviour
 {
     [SerializeField] private GameObject _wallPrefab;
     [SerializeField] private GameObject _Head;
+    [SerializeField] private GameObject _Head1;
     [SerializeField] private Vector2 _StartingCorner;
     [SerializeField] private int _width = 50;
     [SerializeField] private int _height = 40;
@@ -17,6 +18,7 @@ public class BoardManager : MonoBehaviour
         _gameManager = FindObjectOfType<GameManager>();
         GenerateWalls();
         InstantiateHead();
+        InstantiateHead1();
     }
 
     private void InstantiateHead()
@@ -27,6 +29,16 @@ public class BoardManager : MonoBehaviour
         
         _gameManager.AddScreenObject(Head.transform);
     }
+
+    private void InstantiateHead1()
+    {
+        GameObject Head1 = Instantiate(_Head1);
+        pos = new Vector2(_StartingCorner.x + _width / 2, _StartingCorner.y + _height / -2 -2f);
+        Head1.transform.position = pos;
+
+        _gameManager.AddScreenObject(Head1.transform);
+    }
+
 
     private void GenerateWalls()
     {
