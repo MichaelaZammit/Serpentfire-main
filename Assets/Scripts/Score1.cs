@@ -19,7 +19,7 @@ public class Score1 : MonoBehaviour
 
     public void Update()
     {
-        _score1.text = _gameManager.Score.ToString();
+        //_score1.text = _gameManager.Score.ToString();
     }
 
 }

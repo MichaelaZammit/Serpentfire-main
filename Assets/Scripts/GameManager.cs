@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private List<Transform> _screenObjects = new List<Transform>();
     private GameState _currentState;
 
-    public int Score = 0;
+    public int[] scores = new int[2];
 
     public GameState CurrentState { get { return _currentState; } }
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.GameInProgress:
                 _gameOver.SetActive(false);
-                Score = 0;
+                scores = new int[] { 0, 0 };
                 break;
             case GameState.GameOver:
                 _gameOver.SetActive(true);

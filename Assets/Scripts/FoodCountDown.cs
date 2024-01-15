@@ -43,7 +43,6 @@ public class FoodCountdown : MonoBehaviour
         }
 
         _gameManager.RemoveScreenObject(transform);
-        _gameManager.Score += Points;
         Destroy(gameObject);
     }
 }

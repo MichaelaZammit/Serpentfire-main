@@ -7,15 +7,13 @@ using UnityEngine.InputSystem;
 
 public class Player1Controller : MonoBehaviour
 {
-    private class PlayerControls
-    {
-        
-    }
-
     [SerializeField] private GameObject _tailPrefab;
     [SerializeField] private float _snakeSpeed = 0.3f;
+    [SerializeField] private int playerIndex = 0;
 
-    private PlayerControls _controls;
+    private PlayerInput _controls;
+    private InputAction _movement;
+
     private Vector2 _currentDirection = Vector2.right;
     private float _movementSpeed = 0.3f;
     private float _moveTimer = 0f;
@@ -26,7 +24,9 @@ public class Player1Controller : MonoBehaviour
 
     private void Awake()
     {
-        _controls = new PlayerControls();
+        _controls = GetComponent<PlayerInput>();
+        _movement = _controls.currentActionMap.FindAction("Movement");
+
         _gameManager = FindObjectOfType<GameManager>();
     }
 
@@ -70,14 +70,12 @@ public class Player1Controller : MonoBehaviour
 
     private void OnEnable()
     {
-        _controls.Player.Enable();
-        _controls.Player.Movement.performed += Movement;
+        _movement.performed += Movement;
     }
 
     private void OnDisable()
     {
-        _controls.Player.Disable();
-        _controls.Player.Movement.performed -= Movement;
+        _movement.performed -= Movement;
     }
 
     private void Movement(InputAction.CallbackContext context)
@@ -96,7 +94,8 @@ public class Player1Controller : MonoBehaviour
         {
             if (collision.TryGetComponent<FoodCountdown>(out FoodCountdown foodComponent))
             {
-                _gameManager.Score += foodComponent.CountdownTimer + 1;
+                _gameManager.scores[playerIndex] += foodComponent.CountdownTimer + 1;
+                int[] scores = new int[2];
                 FoodEaten(collision);
             }
         }
