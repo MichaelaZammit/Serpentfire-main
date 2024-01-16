@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private List<Transform> _screenObjects = new List<Transform>();
     private GameState _currentState;
 
-    public int[] scores = new int[2];
+    public Scores scores = new Scores();
 
     public GameState CurrentState { get { return _currentState; } }
 
@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SetGameState(GameState.GameInProgress);
+        scores = SaveData.Load();
+        scores.SetScore(0, 0);
+        scores.SetScore(1, 0);
     }
 
     public void SetGameState(GameState gameState)
@@ -32,7 +35,6 @@ public class GameManager : MonoBehaviour
         {
             case GameState.GameInProgress:
                 _gameOver.SetActive(false);
-                scores = new int[] { 0, 0 };
                 break;
             case GameState.GameOver:
                 _gameOver.SetActive(true);
@@ -65,5 +67,10 @@ public class GameManager : MonoBehaviour
     {
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnDestory()
+    {
+        SaveData.Save(scores);
     }
 }

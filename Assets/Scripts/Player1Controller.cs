@@ -82,9 +82,12 @@ public class Player1Controller : MonoBehaviour
     {
         Vector2 direction = context.ReadValue<Vector2>();
 
+
         if (Vector2.Dot(direction, _currentDirection) == -1)
             return;
 
+        // if x > 0 then rotate to face right
+        // if x < 0 then rotate to face left
         _currentDirection = direction;
     }
 
@@ -94,7 +97,7 @@ public class Player1Controller : MonoBehaviour
         {
             if (collision.TryGetComponent<FoodCountdown>(out FoodCountdown foodComponent))
             {
-                _gameManager.scores[playerIndex] += foodComponent.CountdownTimer + 1;
+                _gameManager.scores.SetScore(playerIndex, _gameManager.scores.score[playerIndex] + foodComponent.CountdownTimer + 1);
                 int[] scores = new int[2];
                 FoodEaten(collision);
             }

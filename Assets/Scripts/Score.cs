@@ -9,11 +9,10 @@ public class Score : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI _score;
+    [SerializeField] private TextMeshProUGUI _highScore;
     [SerializeField] private int playerIndex;
 
     private GameManager _gameManager;
-
-    private Scores scoreData = new Scores();
 
     private void Awake()
     {
@@ -22,22 +21,8 @@ public class Score : MonoBehaviour
 
     private void Update()
     {
-        _score.text = _gameManager.scores[playerIndex].ToString();
-
-        if (scoreData.score > scoreData.highScore)
-        {
-            scoreData.highScore = scoreData.score;
-        }
-    }
-
-    private void Start()
-    {
-        scoreData = SaveData.Load();
-    }
-
-    private void OnDestory()
-    {
-        SaveData.Save(scoreData);
+        _score.text = _gameManager.scores.score[playerIndex].ToString();
+        _highScore.text = _gameManager.scores.highScore[playerIndex].ToString();
     }
 
 
